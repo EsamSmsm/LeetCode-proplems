@@ -1,25 +1,36 @@
 void main() {
-  findGCD([2, 10]);
-  findGCD([7, 5, 6, 8, 3]);
-  findGCD([2, 2, 7]);
-  findGCD([12, 15]);
-  print(5 % 4);
+  intToRoman(3);
+  intToRoman(58);
+  intToRoman(1994);
 }
 
-//#region 1979. Find Greatest Common Divisor of Array
-int findGCD(List<int> nums) {
-  int min = nums.first, max = 0;
-  for (int i = 0; i < nums.length; i++) {
-    if (nums[i] > max) max = nums[i];
-    if (nums[i] < min) min = nums[i];
+//#region 12. Integer to Roman
+String intToRoman(int num) {
+  Map<int, String> roman = {
+    1: 'I',
+    4: 'IV',
+    5: 'V',
+    9: 'IX',
+    10: 'X',
+    40: 'XL',
+    50: 'L',
+    90: 'XC',
+    100: 'C',
+    400: 'CD',
+    500: 'D',
+    900: 'CM',
+    1000: 'M'
+  };
+  List<int> keys = roman.keys.toList();
+  StringBuffer result = StringBuffer();
+  for (int i = keys.length - 1; i >= 0; i--) {
+    while (num >= keys[i]) {
+      result.write(roman[keys[i]]!);
+      num -= keys[i];
+    }
   }
-  while (max != 0) {
-    int temp = max;
-    max = min % max;
-    min = temp;
-  }
-  print(min.abs());
-  return min.abs();
+  print(result);
+  return result.toString();
 }
 //#endregion
 
@@ -37,7 +48,23 @@ int romanToInt(String s) {
   }
   return result;
 }
+//#endregion
 
+//#region 1979. Find Greatest Common Divisor of Array
+int findGCD(List<int> nums) {
+  int min = nums.first, max = 0;
+  for (int i = 0; i < nums.length; i++) {
+    if (nums[i] > max) max = nums[i];
+    if (nums[i] < min) min = nums[i];
+  }
+  while (max != 0) {
+    int temp = max;
+    max = min % max;
+    min = temp;
+  }
+  print(min.abs());
+  return min.abs();
+}
 //#endregion
 
 //region 121. Best Time to Buy and Sell Stock
