@@ -1,17 +1,136 @@
 void main() {
-  bool isIsomorphic(String s, String t) {
-    Map<String, String> map = {};
-    for (int i = 0; i < s.length; i++) {
-      print(map);
-      if ((map[s[i]] != null || map.containsValue(t[i])) && map[s[i]] != t[i]) return false;
-      map[s[i]] = t[i];
-    }
-    print(map);
-    return true;
-  }
-
-  print(isIsomorphic("paper", "title").toString());
-  print(isIsomorphic("egg", "add").toString());
-  print(isIsomorphic("bar", "foo").toString());
-  print(isIsomorphic("badc", "baba").toString());
+  findGCD([2, 10]);
+  findGCD([7, 5, 6, 8, 3]);
+  findGCD([2, 2, 7]);
+  findGCD([12, 15]);
+  print(5 % 4);
 }
+
+//#region 1979. Find Greatest Common Divisor of Array
+int findGCD(List<int> nums) {
+  int min = nums.first, max = 0;
+  for (int i = 0; i < nums.length; i++) {
+    if (nums[i] > max) max = nums[i];
+    if (nums[i] < min) min = nums[i];
+  }
+  while (max != 0) {
+    int temp = max;
+    max = min % max;
+    min = temp;
+  }
+  print(min.abs());
+  return min.abs();
+}
+//#endregion
+
+//#region 13. Roman to Integer
+int romanToInt(String s) {
+  Map<String, int> roman = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000};
+  int result = 0;
+  for (int i = 0; i < s.length; i++) {
+    if (i + 1 < s.length && roman[s[i]]! < roman[s[i + 1]]!) {
+      result += roman[s[i + 1]]! - roman[s[i]]!;
+      i++;
+    } else {
+      result += roman[s[i]]!;
+    }
+  }
+  return result;
+}
+
+//#endregion
+
+//region 121. Best Time to Buy and Sell Stock
+int maxProfit(List<int> prices) {
+  int max = 0;
+  for (int i = 0; i < prices.length; i++) {
+    for (int j = i + 1; j < prices.length; j++) {
+      if (prices[j] - prices[i] > max) {
+        max = prices[j] - prices[i];
+      }
+    }
+  }
+  print(max);
+  return max;
+}
+//#endregion
+
+//#region 205. Isomorphic Strings
+bool isIsomorphic(String s, String t) {
+  Map<String, String> map = {};
+  for (int i = 0; i < s.length; i++) {
+    print(map);
+    if ((map[s[i]] != null || map.containsValue(t[i])) && map[s[i]] != t[i]) return false;
+    map[s[i]] = t[i];
+  }
+  print(map);
+  return true;
+}
+//#endregion
+
+//region 26. Remove Duplicates from Sorted array
+int removeDuplicates(List<int> nums) {
+  int p1 = 1;
+  int limit = nums.last;
+  for (int i = 0; i < nums.length; i++) {
+    if (p1 == nums.length || p1 + 1 == nums.length) break;
+    if (nums[p1] == nums[i] && nums[p1] == nums[p1 + 1]) nums[i] = nums[i] * 0 + limit + 1;
+    p1++;
+  }
+  nums.removeWhere((e) => e > limit);
+  print(nums);
+  return nums.length;
+}
+//endregion
+
+//region 58. Length of Last Word
+int lengthOfLastWord(String s) {
+  return s.split(' ').lastWhere((element) => element.length != 0).length;
+}
+//endregion
+
+//region 1716. Calculate Money in Leetcode Bank
+int countByWeek(int week, int n) {
+  int k = 0;
+  for (int i = 0; i < n; i++) {
+    k += i == 0 ? week : i + week;
+  }
+  return k;
+}
+
+int totalMoney(int n) {
+  int weeks = n ~/ 7 + 1;
+  int money = 0;
+  for (int i = 1; i <= weeks; i++) {
+    money += countByWeek(i, i == weeks ? n - ((i - 1) * 7) : 7);
+  }
+  return money;
+}
+// endregion
+
+//region 169. majorityElement
+int majorityElement(List<int> nums) {
+  nums.sort();
+  return nums[nums.length ~/ 2];
+}
+//endregion
+
+//region 189.Rotate Array
+void reverse(List<int> nums, int start, end) {
+  while (start < end) {
+    int temp = nums[start];
+    nums[start] = nums[end];
+    nums[end] = temp;
+    start++;
+    end--;
+  }
+}
+
+void rotate(List<int> nums, int k) {
+  k = k % nums.length;
+  reverse(nums, 0, nums.length - 1);
+  reverse(nums, 0, k - 1);
+  reverse(nums, k, nums.length - 1);
+  print(nums);
+}
+//endregion
