@@ -1,8 +1,14 @@
-void main() {
-  intToRoman(3);
-  intToRoman(58);
-  intToRoman(1994);
+void main() {}
+
+//#region 338. Counting Bits
+List<int> countBits(int n) {
+  List<int> result = [];
+  for (int i = 0; i <= n; i++) {
+    result.add(i.toRadixString(2).replaceAll('0', '').length);
+  }
+  return result;
 }
+//#endregion
 
 //#region 12. Integer to Roman
 String intToRoman(int num) {
@@ -29,7 +35,6 @@ String intToRoman(int num) {
       num -= keys[i];
     }
   }
-  print(result);
   return result.toString();
 }
 //#endregion
