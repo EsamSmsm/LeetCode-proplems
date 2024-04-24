@@ -1,4 +1,60 @@
-void main() {}
+void main() {
+  fibonicci(2);
+  fibonicci(3);
+}
+
+//#region 509. Fibonacci Number
+// 0, 1, 1, 2, 3, 5, 8, 13
+int fibonicci(int n) {
+  int t0 = 0, t1 = 1;
+  int temp = 0;
+  while (n > 0) {
+    temp = t0;
+    t0 = t1;
+    t1 = temp + t0;
+    n--;
+  }
+  print(t0);
+  return t0;
+}
+//#endregion
+
+//#region 1137. N-th Tribonacci Number
+// 0 + 1 + 1 + 2 + 4 + 7 + 13
+int tribonacci(int n) {
+  int t0 = 0, t1 = 1, t2 = 1;
+  int temp = 0;
+  while (n > 0) {
+    temp = t0;
+    t0 = t1;
+    t1 = t2;
+    t2 = temp + t0 + t1;
+    n--;
+  }
+  return t0;
+}
+//#endregion
+
+//#region 443. String Compression
+int compress(List<String> chars) {
+  int index = 0, indexAns = 0;
+  while (index < chars.length) {
+    var currentChar = chars[index];
+    int count = 0;
+    while (index < chars.length && chars[index] == currentChar) {
+      index++;
+      count++;
+    }
+    chars[indexAns++] = currentChar;
+    if (count != 1)
+      for (var c in count.toString().split('')) {
+        chars[indexAns++] = c;
+      }
+  }
+  chars.removeRange(indexAns, chars.length); // Remove the remaining elements
+  print(chars);
+  return indexAns;
+} //#endregion
 
 //#region 338. Counting Bits
 List<int> countBits(int n) {
