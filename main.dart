@@ -1,6 +1,7 @@
 void main() {
-  fibonicci(2);
-  fibonicci(3);
+  maxProfit2([7, 1, 5, 3, 6, 4]);
+  maxProfit2([1, 2, 3, 4, 5]);
+  maxProfit2([7, 6, 4, 3, 1]);
 }
 
 //#region 509. Fibonacci Number
@@ -125,6 +126,19 @@ int findGCD(List<int> nums) {
   }
   print(min.abs());
   return min.abs();
+}
+//#endregion
+
+//region 122. Best Time to Buy and Sell Stock II
+int maxProfit2(List<int> prices) {
+  int max = 0;
+  for (int i = 1; i < prices.length; i++) {
+    if (prices[i] > prices[i - 1]) {
+      max += prices[i] - prices[i - 1];
+    }
+  }
+  print(max);
+  return max;
 }
 //#endregion
 
