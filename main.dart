@@ -1,8 +1,23 @@
+import 'dart:math';
+
 void main() {
-  maxProfit2([7, 1, 5, 3, 6, 4]);
-  maxProfit2([1, 2, 3, 4, 5]);
-  maxProfit2([7, 6, 4, 3, 1]);
+  print(canJump([2, 3, 1, 1, 4]));
+  print(canJump([3, 2, 1, 0, 4]));
+  print(canJump([2, 0, 2]));
 }
+
+//region 55. Jump Game
+bool canJump(List<int> nums) {
+  int currentStep = 0;
+  for (int i = 0; i < nums.length; i++) {
+    if (i > currentStep) {
+      return false;
+    }
+    currentStep = max(currentStep, i + nums[i]);
+  }
+  return true;
+}
+//endregion
 
 //#region 509. Fibonacci Number
 // 0, 1, 1, 2, 3, 5, 8, 13
